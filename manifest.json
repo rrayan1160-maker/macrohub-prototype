@@ -1,0 +1,19 @@
+{
+  "name": "MacroHub",
+  "short_name": "MacroHub",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#071316",
+  "theme_color": "#02C3A6",
+  "description": "MacroHub healthy meal subscription prototype",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "assets/images/macrohub_logo_transparent.png",
+      "sizes": "230x150",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

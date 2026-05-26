@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#02C3A6">
+    <title>MacroHub Web Prototype</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <section class="screen active" id="splash">
+        <div class="center-stack">
+          <div class="logo app-icon-preview"><img src="assets/images/macrohub_logo_transparent.png" alt="MacroHub logo"></div>
+          <h1>MacroHub</h1>
+          <p>Premium healthy meals built around your macros.</p>
+        </div>
+        <button class="primary" data-route="onboarding">Start Your Plan</button>
+      </section>
+
+      <section class="screen" id="onboarding">
+        <div class="topbar"><button class="ghost" data-back>Back</button></div>
+        <div class="hero-card">
+          <div class="logo small"><img src="assets/images/macrohub_logo_transparent.png" alt="MacroHub logo"></div>
+          <h2>Your macros. Your meals. Made simple.</h2>
+          <p>Choose your goal, set your meals per day, and get chef-built healthy meals calculated around your lifestyle.</p>
+          <div class="note">Fresh meals, clear macros, no guesswork.</div>
+        </div>
+        <div class="button-row">
+          <button class="primary" data-route="goals">Start Your Plan</button>
+          <button class="secondary" data-route="meals">View Meals</button>
+        </div>
+      </section>
+
+      <section class="screen" id="goals">
+        <div class="topbar"><button class="ghost" data-back>Back</button><h3>Choose Goal</h3></div>
+        <h2>What is your goal?</h2>
+        <p class="muted">MacroHub will tailor plans around the direction you choose.</p>
+        <div class="option-list" id="goalOptions"></div>
+        <button class="primary stick-bottom" data-route="calculator">Continue</button>
+      </section>
+
+      <section class="screen" id="calculator">
+        <div class="topbar"><button class="ghost" data-back>Back</button><h3>Calculator</h3></div>
+        <h2>Calorie Calculator / حاسبة الاحتياج التقريبي</h2>
+        <p class="muted">Optional estimate before choosing a subscription. You can skip and choose directly.</p>
+        <div class="card-list">
+          <div class="glass-card">
+            <div class="form-grid">
+              <label class="field">Gender / الجنس
+                <select id="calcGender">
+                  <option value="Male">Male / ذكر</option>
+                  <option value="Female">Female / أنثى</option>
+                </select>
+              </label>
+              <label class="field">Age / العمر
+                <input id="calcAge" type="number" min="1" inputmode="numeric" placeholder="30">
+              </label>
+              <label class="field">Height / الطول cm
+                <input id="calcHeight" type="number" min="1" inputmode="numeric" placeholder="175">
+              </label>
+              <label class="field">Weight / الوزن kg
+                <input id="calcWeight" type="number" min="1" inputmode="numeric" placeholder="80">
+              </label>
+              <label class="field">Activity Level / مستوى النشاط
+                <select id="calcActivity">
+                  <option value="Sedentary">Sedentary / قليل الحركة</option>
+                  <option value="Light">Light / نشاط خفيف</option>
+                  <option value="Moderate" selected>Moderate / نشاط متوسط</option>
+                  <option value="Active">Active / نشيط</option>
+                  <option value="Very Active">Very Active / نشيط جدًا</option>
+                </select>
+              </label>
+              <label class="field">Goal / الهدف
+                <select id="calcGoal">
+                  <option value="Lose Fat">Lose Fat / خسارة دهون</option>
+                  <option value="Maintain" selected>Maintain / محافظة</option>
+                  <option value="Build Muscle">Build Muscle / زيادة عضل</option>
+                </select>
+              </label>
+            </div>
+            <div class="button-row compact">
+              <button class="primary" data-calculate>Calculate / احسب</button>
+              <button class="secondary" data-skip-calculator>Skip / تخطي</button>
+            </div>
+          </div>
+          <div id="calculatorResult"></div>
+        </div>
+      </section>
+
+      <section class="screen" id="mealsPerDay">
+        <div class="topbar"><button class="ghost" data-back>Back</button><h3>Meals</h3></div>
+        <h2>How many meals per day?</h2>
+        <p class="muted">Pick a daily rhythm you can keep consistent.</p>
+        <div class="meal-count-grid" id="mealCountOptions"></div>
+        <button class="primary stick-bottom" data-route="plans">View Plans</button>
+      </section>
+
+      <section class="screen" id="plans">
+        <div class="topbar"><button class="ghost" data-back>Back</button><h3>Plans</h3></div>
+        <h2>Pick your plan</h2>
+        <p class="muted" id="planSubtitle"></p>
+        <div class="card-list" id="plansList"></div>
+      </section>
+
+      <section class="screen with-nav" id="home">
+        <div class="dashboard-head">
+          <div>
+            <h2>Home</h2>
+            <p class="muted">Your MacroHub day at a glance</p>
+          </div>
+          <div class="avatar"><img src="assets/images/macrohub_logo_transparent.png" alt="MacroHub logo"></div>
+        </div>
+        <div class="glass-card" id="dashboardSubscription">
+          <span class="eyebrow">Client Subscription</span>
+          <h3>Chicken Plan</h3>
+          <p>150g protein - 2 meals daily - renews in 18 days</p>
+        </div>
+        <div class="glass-card">
+          <span class="eyebrow">Today Macros</span>
+          <p class="muted" id="dashboardCalories">Daily target based on the active plan.</p>
+          <div class="macro-row" id="dashboardMacros">
+            <div><span>Protein</span><strong>119 / 150g</strong></div>
+            <div><span>Carbs</span><strong>136 / 180g</strong></div>
+            <div><span>Fat</span><strong>35 / 55g</strong></div>
+          </div>
+          <div class="progress"><i></i></div>
+        </div>
+        <div class="glass-card delivery">
+          <span>🚚</span>
+          <div><span class="eyebrow">Delivery Status</span><strong>Preparing - arriving tomorrow 8:00 AM</strong></div>
+        </div>
+        <div class="glass-card">
+          <div class="split-title"><h3>Today's Meals</h3><button class="link" data-tab="meals">Edit Meals</button></div>
+          <div id="todayMeals"></div>
+        </div>
+      </section>
+
+      <section class="screen with-nav" id="meals">
+        <div class="topbar solo"><h3>Meals</h3></div>
+        <h2>MacroHub Menu</h2>
+        <p class="muted">Ready meals from the real MacroHub menu. Sauces and sides are not listed as meals.</p>
+        <div class="card-list" id="mealsList"></div>
+      </section>
+
+      <section class="screen" id="mealDetails">
+        <div class="topbar"><button class="ghost" data-back>Back</button><h3>Meal Details</h3></div>
+        <div id="mealDetailsContent"></div>
+      </section>
+
+      <section class="screen" id="checkout">
+        <div class="topbar"><button class="ghost" data-back>Back</button><h3>Checkout</h3></div>
+        <h2>Confirm subscription</h2>
+        <p class="muted">Review your MacroHub plan before activating the prototype checkout.</p>
+        <div id="checkoutSummary"></div>
+        <button class="primary stick-bottom" data-route="home">Pay / Confirm Subscription</button>
+      </section>
+
+      <section class="screen with-nav" id="subscriptions">
+        <div class="topbar solo"><h3>Subscriptions</h3></div>
+        <div class="glass-card large-center">
+          <span class="big-icon">✦</span>
+          <h2>Subscriptions / الاشتراكات</h2>
+          <p>Chicken Plan is active with 150g protein, 2 daily meals, and monthly renewal.</p>
+          <button class="primary" data-route="plans">Change Plan</button>
+        </div>
+      </section>
+
+      <section class="screen with-nav" id="profile">
+        <div class="topbar solo"><h3>Profile</h3></div>
+        <div class="glass-card large-center">
+          <div class="avatar big app-icon-preview"><img src="assets/images/macrohub_logo_transparent.png" alt="MacroHub app icon preview"></div>
+          <h2>MacroHub Member</h2>
+          <p>Manage address, payment, preferences, and macro targets.</p>
+        </div>
+      </section>
+
+      <nav class="bottom-nav" id="bottomNav">
+        <button data-tab="home">Home</button>
+        <button data-tab="meals">Meals</button>
+        <button data-tab="subscriptions">Subscriptions</button>
+        <button data-tab="profile">Profile</button>
+      </nav>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
